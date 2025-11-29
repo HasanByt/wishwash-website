@@ -8,7 +8,7 @@ export default function ServicesPage() {
       </h1>
 
       <p className="text-lg text-gray-300 max-w-3xl leading-relaxed mb-14">
-        WishWash bietet professionelle Reinigungsservices für private Haushalte,
+        Wish Wash bietet professionelle Reinigungsservices für private Haushalte,
         Unternehmen und Spezialanforderungen. Hier findest du eine Übersicht über
         alle Leistungen, die wir mit höchster Qualität und Zuverlässigkeit anbieten.
       </p>

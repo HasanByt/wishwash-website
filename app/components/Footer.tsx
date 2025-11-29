@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col items-start">
           <img
             src="/logo00.webp"
-            alt="WishWash Logo"
+            alt="Wish Wash Logo"
             className="w-26 mb-4 opacity-90"
           />
           <p className="text-sm">
@@ -31,15 +31,15 @@ export default function Footer() {
         {/* Kontaktinfos */}
         <div>
           <h3 className="text-[#E5D5A4] font-semibold mb-3">Kontakt</h3>
-          <p>WishWash Reinigung</p>
+          <p>Wish Wash Reinigung</p>
           <p>Telefon: +41 79 123 45 67</p>
-          <p>E-Mail: info@wishwash.ch</p>
+          <p>E-Mail: info@Wish Wash.ch</p>
         </div>
 
       </div>
 
       <p className="text-center text-gray-500 text-xs mt-10">
-        © {new Date().getFullYear()} WishWash – Alle Rechte vorbehalten.
+        © {new Date().getFullYear()} Wish Wash – Alle Rechte vorbehalten.
       </p>
     </footer>
   );

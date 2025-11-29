@@ -13,8 +13,8 @@ export default function ImpressumPage() {
                     Inhaber: Albana Aziri<br />
                     Adresse: <br />
                     Telefon: <br />
-                    E-Mail: info@wishwash.ch<br />
-                    Webseite: www.wishwash.ch<br />
+                    E-Mail: info@Wish Wash.ch<br />
+                    Webseite: www.Wish Wash.ch<br />
                 </p>
 
                 <div>

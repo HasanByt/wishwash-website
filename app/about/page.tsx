@@ -9,7 +9,7 @@ export default function AboutPage() {
 
       {/* Intro Text */}
       <p className="text-lg text-gray-300 max-w-3xl leading-relaxed mb-12">
-        WishWash ist ein modernes und zuverlässiges Reinigungsunternehmen, das für 
+        Wish Wash ist ein modernes und zuverlässiges Reinigungsunternehmen, das für 
         Privat- und Geschäftskunden professionelle Reinigungslösungen anbietet.
         Unser Ziel ist es, jeden Raum makellos sauber zu hinterlassen – mit Präzision,
         Leidenschaft und einem Lächeln.
@@ -21,7 +21,7 @@ export default function AboutPage() {
         {/* Bild */}
         <img
           src="./logo.webp"
-          alt="WishWash Logo"
+          alt="Wish Wash Logo"
           className="w-100 mx-auto drop-shadow-xl"
         />
 

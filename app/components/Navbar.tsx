@@ -13,7 +13,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-3">
                     <img
                         src="/navbar.webp"
-                        alt="WishWash Logo"
+                        alt="Wish Wash Logo"
                         className="w-15 h-15"
                     />
                 </div>

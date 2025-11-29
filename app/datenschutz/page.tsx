@@ -23,8 +23,8 @@ export default function DatenschutzPage() {
             Wish Wash Reinigung<br />
             Inhaber: Albana Aziri<br />
             Adresse: <br />
-            E-Mail: info@wishwash.ch<br />
-            Webseite: www.wishwash.ch
+            E-Mail: info@Wish Wash.ch<br />
+            Webseite: www.Wish Wash.ch
           </p>
         </section>
 

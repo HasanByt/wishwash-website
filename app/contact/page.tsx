@@ -24,7 +24,7 @@ export default function ContactPage() {
                     Wish Wash Reinigung<br />
                     Inhaber: Albana Aziri<br />
                     Telefon: +41 79 123 45 67<br />
-                    E-Mail: info@wishwash.ch<br />
+                    E-Mail: info@Wish Wash.ch<br />
                     Standort: Schweiz
                 </p>
             </div>

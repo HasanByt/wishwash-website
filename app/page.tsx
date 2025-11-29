@@ -40,7 +40,7 @@ export default function HomePage() {
         <section className="flex flex-col items-center justify-center text-center py-32 px-4">
           <img
             src="/logo.webp"
-            alt="WishWash Logo"
+            alt="Wish Wash Logo"
             className="w-150 mb-10 drop-shadow-lg"
           />
 
@@ -49,7 +49,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-10">
-            WishWash sorgt für Sauberkeit, Frische und Wohlbefinden – zuverlässig,
+            Wish Wash sorgt für Sauberkeit, Frische und Wohlbefinden – zuverlässig,
             gründlich und fair. Hol dir jetzt deine unverbindliche Offerte.
           </p>
 
