@@ -7,92 +7,132 @@ export default function GlassCleanerBackground() {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
         const wiper = wiperRef.current;
+        if (!canvas || !wiper) return;
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
 
-        // Soap Layer
-        const soap = new Image();
-        soap.src = "/soap.png";
+        // ----- Canvas Setup -----
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-        soap.onload = () => {
-            ctx.globalAlpha = 0.55; // subtiler Look
-            ctx.drawImage(soap, 0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha = 1.0;
+            const soapImg = new Image();
+            soapImg.src = "/soap.png";
+
+            soapImg.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.globalAlpha = 0.60;
+                ctx.drawImage(soapImg, 0, 0, canvas.width, canvas.height);
+                ctx.globalAlpha = 1;
+            };
         };
 
+        resize();
+        window.addEventListener("resize", resize);
+
+        // ----- Wischen -----
         let firstMove = true;
 
         function cleanAt(clientX, clientY) {
             const rect = canvas.getBoundingClientRect();
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
+
+            const rawX = clientX - rect.left;
+            const rawY = clientY - rect.top;
 
             if (firstMove) {
-                wiper.style.opacity = 1;
+                wiper.style.opacity = "1";
                 firstMove = false;
             }
 
             const w = wiper.offsetWidth;
             const h = wiper.offsetHeight;
 
-            // Wiper Position aktualisieren
-            wiper.style.left = `${x - w / 2}px`;
-            wiper.style.top = `${y - h / 2}px`;
+            // 🔧 Feinjustierung: Wischpunkt höher setzen
+            const rubberOffsetY = -5;
 
-            // ---- Realistische Wischfläche ----
+            const x = rawX;
+            const y = rawY + rubberOffsetY;
 
-            // Breite = Wiper-Breite
-            const wipeWidth = w * 0.85;     // 85% des Wischers = Gummilänge
-            const wipeHeight = 30;          // Gummihöhe (kann angepasst werden)
-            const radius = 12;              // Abrundung
+            wiper.style.left = `${rawX - w / 2}px`;
+            wiper.style.top = `${rawY - h / 2}px`;
+
+            const wipeWidth = w * 0.85;
+            const wipeHeight = 36;
+            const radius = 14;
 
             ctx.globalCompositeOperation = "destination-out";
-
             ctx.beginPath();
             ctx.roundRect(
-                x - wipeWidth / 2,    // links
-                y - wipeHeight / 2,   // oben
-                wipeWidth,            // Breite
-                wipeHeight,           // Höhe
-                radius                // Rundungen
+                x - wipeWidth / 2,
+                y - wipeHeight / 2,
+                wipeWidth,
+                wipeHeight,
+                radius
             );
             ctx.fill();
-
             ctx.globalCompositeOperation = "source-over";
         }
 
 
+        // ----- Desktop -----
         function onMouseMove(e) {
             cleanAt(e.clientX, e.clientY);
+        }
+        window.addEventListener("mousemove", onMouseMove);
+
+        // ----- Mobile Press & Hold -----
+        let isWiping = false;
+        let touchTimeout = null;
+
+        function onTouchStart(e) {
+            const t = e.touches[0];
+            if (!t) return;
+
+            touchTimeout = setTimeout(() => {
+                isWiping = true;
+            }, 250);
         }
 
         function onTouchMove(e) {
             const t = e.touches[0];
+            if (!t) return;
+
+            if (!isWiping) return;
+
             cleanAt(t.clientX, t.clientY);
         }
 
+        function onTouchEnd() {
+            isWiping = false;
+            clearTimeout(touchTimeout);
+        }
 
-        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("touchstart", onTouchStart, { passive: true });
         window.addEventListener("touchmove", onTouchMove, { passive: true });
+        window.addEventListener("touchend", onTouchEnd, { passive: true });
 
+        // ----- Cleanup -----
         return () => {
+            window.removeEventListener("resize", resize);
             window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("touchstart", onTouchStart);
             window.removeEventListener("touchmove", onTouchMove);
+            window.removeEventListener("touchend", onTouchEnd);
         };
     }, []);
 
     return (
         <div className="pointer-events-none fixed inset-0 z-0">
-            <canvas ref={canvasRef} className="w-full h-full absolute inset-0" />
+            <canvas ref={canvasRef} className="absolute inset-0" />
             <img
                 ref={wiperRef}
                 src="/wiper.png"
-                className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
                 alt="wiper"
+                className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
             />
         </div>
+
     );
 }
