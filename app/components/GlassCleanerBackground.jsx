@@ -1,135 +1,117 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function GlassCleanerBackground() {
-    const canvasRef = useRef(null);
-    const wiperRef = useRef(null);
+export default function GlassCleanerBackground({ active }) {
+  const canvasRef = useRef(null);
+  const wiperRef = useRef(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const wiper = wiperRef.current;
-        if (!canvas || !wiper) return;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const wiper = wiperRef.current;
+    if (!canvas || !wiper) return;
 
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-        // ----- Canvas Setup -----
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+    // ----- Hintergrund Setup -----
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-            const soapImg = new Image();
-            soapImg.src = "/soap.png";
+      const soapImg = new Image();
+      soapImg.src = "/soap.png";
 
-            soapImg.onload = () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalAlpha = 0.60;
-                ctx.drawImage(soapImg, 0, 0, canvas.width, canvas.height);
-                ctx.globalAlpha = 1;
-            };
-        };
+      soapImg.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 0.60;
+        ctx.drawImage(soapImg, 0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+      };
+    };
 
-        resize();
-        window.addEventListener("resize", resize);
+    resize();
+    window.addEventListener("resize", resize);
 
-        // ----- Wischen -----
-        let firstMove = true;
+    // ❌ Wenn Reinigungsmodus AUS → kein Wiper, kein Event Listener
+    if (!active) {
+      wiper.style.opacity = "0";
+      return () => window.removeEventListener("resize", resize);
+    }
 
-        function cleanAt(clientX, clientY) {
-            const rect = canvas.getBoundingClientRect();
+    // ----- Wischen -----
+    let firstMove = true;
 
-            const rawX = clientX - rect.left;
-            const rawY = clientY - rect.top;
+    function cleanAt(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
 
-            if (firstMove) {
-                wiper.style.opacity = "1";
-                firstMove = false;
-            }
+      const rawX = clientX - rect.left;
+      const rawY = clientY - rect.top;
 
-            const w = wiper.offsetWidth;
-            const h = wiper.offsetHeight;
+      if (firstMove) {
+        wiper.style.opacity = "1";
+        firstMove = false;
+      }
 
-            // 🔧 Feinjustierung: Wischpunkt leicht höher setzen
-            const rubberOffsetY = -5;
+      const w = wiper.offsetWidth;
+      const h = wiper.offsetHeight;
 
-            const x = rawX;
-            const y = rawY + rubberOffsetY;
+      const rubberOffsetY = -5;
 
-            wiper.style.left = `${rawX - w / 2}px`;
-            wiper.style.top = `${rawY - h / 2}px`;
+      const x = rawX;
+      const y = rawY + rubberOffsetY;
 
-            const wipeWidth = w * 0.85;
-            const wipeHeight = 36;
-            const radius = 14;
+      wiper.style.left = `${rawX - w / 2}px`;
+      wiper.style.top = `${rawY - h / 2}px`;
 
-            ctx.globalCompositeOperation = "destination-out";
-            ctx.beginPath();
-            ctx.roundRect(
-                x - wipeWidth / 2,
-                y - wipeHeight / 2,
-                wipeWidth,
-                wipeHeight,
-                radius
-            );
-            ctx.fill();
-            ctx.globalCompositeOperation = "source-over";
-        }
+      const wipeWidth = w * 0.85;
+      const wipeHeight = 36;
+      const radius = 14;
 
-        // ----- Desktop -----
-        function onMouseMove(e) {
-            cleanAt(e.clientX, e.clientY);
-        }
-        window.addEventListener("mousemove", onMouseMove);
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.roundRect(
+        x - wipeWidth / 2,
+        y - wipeHeight / 2,
+        wipeWidth,
+        wipeHeight,
+        radius
+      );
+      ctx.fill();
+      ctx.globalCompositeOperation = "source-over";
+    }
 
-        // ----- Mobile: Zwei-Finger-Wischen -----
-        let isWiping = false;
+    // Desktop
+    function onMouseMove(e) {
+      cleanAt(e.clientX, e.clientY);
+    }
 
-        function onTouchStart(e) {
-            // Nur bei ZWEI Fingern wischen
-            if (e.touches.length === 2) {
-                isWiping = true;
-            } else {
-                isWiping = false;
-            }
-        }
+    // Touchscreen
+    function onTouchMove(e) {
+      const t = e.touches[0];
+      if (!t) return;
+      cleanAt(t.clientX, t.clientY);
+      e.preventDefault();
+    }
 
-        function onTouchMove(e) {
-            if (!isWiping) return;
-            if (e.touches.length !== 2) return;
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
 
-            const t = e.touches[0];
-            cleanAt(t.clientX, t.clientY);
-        }
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [active]);
 
-        function onTouchEnd(e) {
-            if (e.touches.length < 2) {
-                isWiping = false;
-            }
-        }
-
-        window.addEventListener("touchstart", onTouchStart, { passive: true });
-        window.addEventListener("touchmove", onTouchMove, { passive: true });
-        window.addEventListener("touchend", onTouchEnd, { passive: true });
-
-        // ----- Cleanup -----
-        return () => {
-            window.removeEventListener("resize", resize);
-            window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("touchstart", onTouchStart);
-            window.removeEventListener("touchmove", onTouchMove);
-            window.removeEventListener("touchend", onTouchEnd);
-        };
-    }, []);
-
-    return (
-        <div className="pointer-events-none fixed inset-0 z-0">
-            <canvas ref={canvasRef} className="absolute inset-0" />
-            <img
-                ref={wiperRef}
-                src="/wiper.png"
-                alt="wiper"
-                className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
-            />
-        </div>
-    );
+  return (
+    <div className="pointer-events-none fixed inset-0 z-0">
+      <canvas ref={canvasRef} className="absolute inset-0" />
+      <img
+        ref={wiperRef}
+        src="/wiper.png"
+        alt="wiper"
+        className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
+      />
+    </div>
+  );
 }

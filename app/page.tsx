@@ -1,12 +1,38 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm";
 import GlassCleanerBackground from "./components/GlassCleanerBackground";
 
 export default function HomePage() {
+  const [isTouch, setIsTouch] = useState(false);
+  const [cleanMode, setCleanMode] = useState(false);
+
+  useEffect(() => {
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   return (
     <main className="relative min-h-screen bg-[#0A1228] text-white overflow-hidden">
 
-      {/* 🔵 Soap-Hintergrund NUR für den Seitenbereich */}
-      <GlassCleanerBackground />
+      {/* 🧽 Reinigungsmodus Button NUR für Touch-Geräte */}
+      {isTouch && (
+        <button
+          onClick={() => setCleanMode(!cleanMode)}
+          className="
+            fixed bottom-6 right-6 
+            z-[9999]
+            px-5 py-3 
+            bg-blue-500 hover:bg-blue-600 
+            text-white rounded-xl shadow-xl
+          "
+        >
+          {cleanMode ? "❌ Abbrechen" : "🧽Reinigungsmodus"}
+        </button>
+      )}
+
+      {/* 🔵 Soap-Hintergrund + Wischer */}
+      <GlassCleanerBackground active={isTouch ? cleanMode : true} />
 
       {/* Inhalt */}
       <div className="relative z-10">
@@ -63,13 +89,17 @@ export default function HomePage() {
             <div className="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
               <div className="text-4xl mb-4">🧽</div>
               <h3 className="text-xl font-semibold text-[#E5D5A4] mb-2">Unterhaltsreinigung</h3>
-              <p className="text-gray-300">Regelmässige Reinigung von Wohnungen, Büros und mehr.</p>
+              <p className="text-gray-300">
+                Regelmässige Reinigung von Wohnungen, Büros und mehr.
+              </p>
             </div>
 
             <div className="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
               <div className="text-4xl mb-4">🪟</div>
               <h3 className="text-xl font-semibold text-[#E5D5A4] mb-2">Fensterreinigung</h3>
-              <p className="text-gray-300">Glasklare Fenster und Rahmenreinigung.</p>
+              <p className="text-gray-300">
+                Glasklare Fenster und Rahmenreinigung.
+              </p>
             </div>
 
             <div className="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
