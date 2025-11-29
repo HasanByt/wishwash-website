@@ -22,7 +22,7 @@ export default function ServicesPage() {
             🧽 Unterhaltsreinigung
           </h2>
           <p className="text-gray-300 leading-relaxed">
-            Regelmäßige Reinigung für Wohnungen, Häuser oder Büros. Wir sorgen für
+            Regelmässige Reinigung für Wohnungen, Häuser oder Büros. Wir sorgen für
             dauerhaft saubere Oberflächen, hygienische Sanitärräume und gepflegte Räume.
           </p>
         </div>
@@ -33,7 +33,7 @@ export default function ServicesPage() {
             🪟 Fensterreinigung
           </h2>
           <p className="text-gray-300 leading-relaxed">
-            Schlierenfreie Fenster innen und außen. Auf Wunsch inklusive Rahmen- und
+            Schlierenfreie Fenster innen und aussen. Auf Wunsch inklusive Rahmen- und
             Kantenreinigung sowie schwer erreichbaren Bereichen.
           </p>
         </div>

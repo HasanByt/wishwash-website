@@ -6,7 +6,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="bg-[#0A1228] text-white border-b border-white/10">
+        <header className="relative z-20 bg-[#0A1228] text-white border-b border-white/10">
             <nav className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
                 {/* Logo */}
