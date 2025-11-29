@@ -70,13 +70,13 @@ export default function GlassCleanerBackground() {
         }
 
         function onTouchMove(e) {
-            e.preventDefault();
             const t = e.touches[0];
             cleanAt(t.clientX, t.clientY);
         }
 
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("touchmove", onTouchMove, { passive: true });
+
+        canvas.removeEventListener("mousemove", onMouseMove);
+        canvas.removeEventListener("touchmove", onTouchMove);
 
         return () => {
             window.removeEventListener("mousemove", onMouseMove);
