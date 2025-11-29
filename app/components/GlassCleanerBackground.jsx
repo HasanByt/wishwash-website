@@ -19,7 +19,7 @@ export default function GlassCleanerBackground({ active }) {
       canvas.height = window.innerHeight;
 
       const soapImg = new Image();
-      soapImg.src = "/soap.png";
+      soapImg.src = "/soap.webp";
 
       soapImg.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

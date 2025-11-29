@@ -20,7 +20,7 @@ export default function AboutPage() {
 
         {/* Bild */}
         <img
-          src="./logo.png"
+          src="./logo.webp"
           alt="WishWash Logo"
           className="w-100 mx-auto drop-shadow-xl"
         />

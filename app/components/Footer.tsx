@@ -6,7 +6,7 @@ export default function Footer() {
         {/* Logo Section */}
         <div className="flex flex-col items-start">
           <img
-            src="/logo00.png"
+            src="/logo00.webp"
             alt="WishWash Logo"
             className="w-26 mb-4 opacity-90"
           />

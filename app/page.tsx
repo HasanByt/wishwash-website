@@ -39,7 +39,7 @@ export default function HomePage() {
         {/* HERO */}
         <section className="flex flex-col items-center justify-center text-center py-32 px-4">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="WishWash Logo"
             className="w-150 mb-10 drop-shadow-lg"
           />
