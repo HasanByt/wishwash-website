@@ -29,3 +29,13 @@ body {
   opacity: 0;
   transition: opacity 0.2s ease-out;
 }
+
+/* Text markieren verhindern beim Long-Press */
+html, body {
+  -webkit-touch-callout: none; /* iOS long-press Menü */
+  -webkit-user-select: none;   /* Safari */
+  -khtml-user-select: none;
+  -moz-user-select: none;      
+  -ms-user-select: none;
+  user-select: none;           /* Standard */
+}
