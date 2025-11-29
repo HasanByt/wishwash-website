@@ -75,8 +75,8 @@ export default function GlassCleanerBackground() {
         }
 
 
-        canvas.removeEventListener("mousemove", onMouseMove);
-        canvas.removeEventListener("touchmove", onTouchMove);
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("touchmove", onTouchMove, { passive: true });
 
         return () => {
             window.removeEventListener("mousemove", onMouseMove);
