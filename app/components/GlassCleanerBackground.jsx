@@ -49,7 +49,7 @@ export default function GlassCleanerBackground() {
             const w = wiper.offsetWidth;
             const h = wiper.offsetHeight;
 
-            // 🔧 Feinjustierung: Wischpunkt höher setzen
+            // 🔧 Feinjustierung: Wischpunkt leicht höher setzen
             const rubberOffsetY = -5;
 
             const x = rawX;
@@ -75,38 +75,36 @@ export default function GlassCleanerBackground() {
             ctx.globalCompositeOperation = "source-over";
         }
 
-
         // ----- Desktop -----
         function onMouseMove(e) {
             cleanAt(e.clientX, e.clientY);
         }
         window.addEventListener("mousemove", onMouseMove);
 
-        // ----- Mobile Press & Hold -----
+        // ----- Mobile: Zwei-Finger-Wischen -----
         let isWiping = false;
-        let touchTimeout = null;
 
         function onTouchStart(e) {
-            const t = e.touches[0];
-            if (!t) return;
-
-            touchTimeout = setTimeout(() => {
+            // Nur bei ZWEI Fingern wischen
+            if (e.touches.length === 2) {
                 isWiping = true;
-            }, 250);
+            } else {
+                isWiping = false;
+            }
         }
 
         function onTouchMove(e) {
-            const t = e.touches[0];
-            if (!t) return;
-
             if (!isWiping) return;
+            if (e.touches.length !== 2) return;
 
+            const t = e.touches[0];
             cleanAt(t.clientX, t.clientY);
         }
 
-        function onTouchEnd() {
-            isWiping = false;
-            clearTimeout(touchTimeout);
+        function onTouchEnd(e) {
+            if (e.touches.length < 2) {
+                isWiping = false;
+            }
         }
 
         window.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -133,6 +131,5 @@ export default function GlassCleanerBackground() {
                 className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
             />
         </div>
-
     );
 }
