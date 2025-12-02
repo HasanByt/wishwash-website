@@ -32,8 +32,8 @@ export default function Footer() {
         <div>
           <h3 className="text-[#E5D5A4] font-semibold mb-3">Kontakt</h3>
           <p>Wish Wash Reinigung</p>
-          <p>Telefon: +41 79 123 45 67</p>
-          <p>E-Mail: info@Wish Wash.ch</p>
+          <p>Telefon: +41 79 373 61 03</p>
+          <p>E-Mail: info@wish-wash.ch</p>
         </div>
 
       </div>

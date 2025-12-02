@@ -1,11 +1,15 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 
-export default function GlassCleanerBackground({ active }) {
+export default function GlassCleanerBackground() {
   const canvasRef = useRef(null);
   const wiperRef = useRef(null);
 
   useEffect(() => {
+    const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isDesktop = !hasTouch;
+
     const canvas = canvasRef.current;
     const wiper = wiperRef.current;
     if (!canvas || !wiper) return;
@@ -13,7 +17,6 @@ export default function GlassCleanerBackground({ active }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // ----- Hintergrund Setup -----
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -23,7 +26,7 @@ export default function GlassCleanerBackground({ active }) {
 
       soapImg.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 0.60;
+        ctx.globalAlpha = 0.12; // 🔥 Sehr dezente Deckkraft
         ctx.drawImage(soapImg, 0, 0, canvas.width, canvas.height);
         ctx.globalAlpha = 1;
       };
@@ -32,76 +35,36 @@ export default function GlassCleanerBackground({ active }) {
     resize();
     window.addEventListener("resize", resize);
 
-    // ❌ Wenn Reinigungsmodus AUS → kein Wiper, kein Event Listener
-    if (!active) {
+    if (!isDesktop) {
       wiper.style.opacity = "0";
       return () => window.removeEventListener("resize", resize);
     }
 
-    // ----- Wischen -----
-    let firstMove = true;
-
-    function cleanAt(clientX, clientY) {
+    function cleanAt(x, y) {
       const rect = canvas.getBoundingClientRect();
+      const cx = x - rect.left;
+      const cy = y - rect.top;
 
-      const rawX = clientX - rect.left;
-      const rawY = clientY - rect.top;
-
-      if (firstMove) {
-        wiper.style.opacity = "1";
-        firstMove = false;
-      }
-
-      const w = wiper.offsetWidth;
-      const h = wiper.offsetHeight;
-
-      const rubberOffsetY = -5;
-
-      const x = rawX;
-      const y = rawY + rubberOffsetY;
-
-      wiper.style.left = `${rawX - w / 2}px`;
-      wiper.style.top = `${rawY - h / 2}px`;
-
-      const wipeWidth = w * 0.85;
-      const wipeHeight = 36;
-      const radius = 14;
+      wiper.style.opacity = "1";
+      wiper.style.left = `${cx - wiper.offsetWidth / 2}px`;
+      wiper.style.top = `${cy - wiper.offsetHeight / 2}px`;
 
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-      ctx.roundRect(
-        x - wipeWidth / 2,
-        y - wipeHeight / 2,
-        wipeWidth,
-        wipeHeight,
-        radius
-      );
+      ctx.roundRect(cx - 60, cy - 20, 120, 40, 20);
       ctx.fill();
       ctx.globalCompositeOperation = "source-over";
     }
 
-    // Desktop
-    function onMouseMove(e) {
-      cleanAt(e.clientX, e.clientY);
-    }
-
-    // Touchscreen
-    function onTouchMove(e) {
-      const t = e.touches[0];
-      if (!t) return;
-      cleanAt(t.clientX, t.clientY);
-      e.preventDefault();
-    }
+    const onMouseMove = (e) => cleanAt(e.clientX, e.clientY);
 
     window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
 
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
     };
-  }, [active]);
+  }, []);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0">
@@ -109,7 +72,7 @@ export default function GlassCleanerBackground({ active }) {
       <img
         ref={wiperRef}
         src="/wiper.png"
-        alt="wiper"
+        alt="Wiper"
         className="absolute w-32 opacity-0 transition-opacity duration-200 select-none"
       />
     </div>

@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
 
 :root {
   --background: #ffffff;
@@ -12,12 +16,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark Mode deaktiviert für Wish Wash */
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+*/
 
 body {
   background: var(--background);
