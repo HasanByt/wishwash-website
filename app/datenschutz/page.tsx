@@ -1,12 +1,28 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function DatenschutzPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-[#F2F8FF] to-[#E6F1FF] text-[#0A1228] px-6 md:px-16 py-28">
 
-      <h1 className="text-4xl md:text-5xl font-bold mb-10">
+      {/* Titel */}
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-4xl md:text-5xl font-bold mb-10"
+      >
         Datenschutzerklärung
-      </h1>
+      </motion.h1>
 
-      <div className="text-gray-700 leading-relaxed space-y-10 max-w-3xl">
+      {/* Inhalt Wrapper */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="text-gray-700 leading-relaxed space-y-10 max-w-3xl"
+      >
 
         <p>
           Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen.
@@ -16,7 +32,12 @@ export default function DatenschutzPage() {
         </p>
 
         {/* 1 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             1. Verantwortliche Stelle
           </h2>
@@ -27,10 +48,15 @@ export default function DatenschutzPage() {
             E-Mail: info@wish-wash.ch<br />
             Webseite: www.wish-wash.ch
           </p>
-        </section>
+        </motion.section>
 
         {/* 2 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             2. Erhebung von Daten
           </h2>
@@ -39,10 +65,15 @@ export default function DatenschutzPage() {
             freiwillig übermitteln, z. B. über das Kontaktformular. Dazu gehören
             Name, E-Mail-Adresse, Telefonnummer und Ihre Nachricht.
           </p>
-        </section>
+        </motion.section>
 
         {/* 3 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             3. Verwendung der Daten
           </h2>
@@ -50,22 +81,32 @@ export default function DatenschutzPage() {
             Die übermittelten Daten verwenden wir ausschliesslich zur Bearbeitung
             Ihrer Anfrage. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre Einwilligung.
           </p>
-        </section>
+        </motion.section>
 
         {/* 4 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             4. Server-Logfiles
           </h2>
           <p>
             Unser Hosting-Provider erhebt automatisch technische Daten wie
-            IP-Adresse, Datum und Uhrzeit, Browsertyp und Betriebssystem.  
+            IP-Adresse, Datum und Uhrzeit, Browsertyp und Betriebssystem.
             Diese Daten dienen ausschliesslich der technischen Sicherheit.
           </p>
-        </section>
+        </motion.section>
 
         {/* 5 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             5. Cookies
           </h2>
@@ -73,32 +114,47 @@ export default function DatenschutzPage() {
             Unsere Webseite kann Cookies verwenden. Sie können Cookies im Browser
             jederzeit deaktivieren.
           </p>
-        </section>
+        </motion.section>
 
         {/* 6 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             6. Formulare (Formspree)
           </h2>
           <p>
-            Wenn Sie unser Kontaktformular nutzen, wird Ihre Nachricht über Formspree 
-            verarbeitet.  
+            Wenn Sie unser Kontaktformular nutzen, wird Ihre Nachricht über Formspree
+            verarbeitet.
             Datenschutzerklärung: https://formspree.io/legal/privacy
           </p>
-        </section>
+        </motion.section>
 
         {/* 7 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             7. Datensicherheit
           </h2>
           <p>
             Wir schützen Ihre Daten durch geeignete technische und organisatorische Massnahmen.
           </p>
-        </section>
+        </motion.section>
 
         {/* 8 */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-2">
             8. Ihre Rechte
           </h2>
@@ -106,13 +162,13 @@ export default function DatenschutzPage() {
             Sie haben das Recht auf Auskunft, Berichtigung, Löschung,
             Einschränkung der Verarbeitung sowie Widerruf Ihrer Einwilligung.
           </p>
-        </section>
+        </motion.section>
 
         <p className="text-gray-600 text-sm">
           Stand: {new Date().getFullYear()}
         </p>
-      </div>
 
+      </motion.div>
     </main>
   );
 }

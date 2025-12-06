@@ -2,39 +2,52 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => setIsOpen(false);
 
-  return (
-    <header className="relative z-20 bg-[#0A1228] text-gray-300 border-b border-white/10">
-      <nav className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+  // Hervorhebung aktiver Link
+  const active = (path: string) =>
+    pathname === path
+      ? "text-[#3AA9FF] font-bold"
+      : "text-gray-300 hover:text-white";
 
-        {/* Logo + Name */}
-        <Link href="/" onClick={closeMenu} className="flex items-center gap-3">
+  return (
+    <header className="relative z-20 bg-[#0A1228] text-gray-300 border-b border-white/10 shadow-lg">
+      <nav className="max-w-7xl mx-auto px-4 py-5 flex justify-between items-center">
+
+        {/* Logo */}
+        <Link href="/" onClick={closeMenu} className="flex items-center">
           <img
-            src="/navbar.webp"
+            src="/logo.webp"
             alt="Wish Wash Logo"
-            className="w-20 h-auto opacity-90"
+            className="
+              w-[160px]         /* Mobile Größe */
+              md:w-[180px]      /* Desktop Größe */
+              h-auto
+              opacity-100 
+              transition-transform 
+              duration-300 
+              hover:scale-105 
+            "
           />
-          <span className="text-[#E5D5A4] font-semibold text-xl tracking-wide">
-            wish-wash.ch
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-8 text-gray-300">
-          <li><Link href="/" className="hover:text-white transition"><b>Home</b></Link></li>
-          <li><Link href="/about" className="hover:text-white transition"><b>Über uns</b></Link></li>
-          <li><Link href="/services" className="hover:text-white transition"><b>Services</b></Link></li>
-          <li><Link href="/contact" className="hover:text-white transition"><b>Kontakt</b></Link></li>
+        <ul className="hidden md:flex gap-10 text-[15px]">
+          <li><Link href="/" className={active("/")}>Home</Link></li>
+          <li><Link href="/about" className={active("/about")}>Über uns</Link></li>
+          <li><Link href="/services" className={active("/services")}>Services</Link></li>
+          <li><Link href="/contact" className={active("/contact")}>Kontakt</Link></li>
         </ul>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-300 text-2xl"
+          className="md:hidden text-gray-300 text-3xl"
           onClick={() => setIsOpen(!isOpen)}
         >
           ☰
@@ -44,23 +57,28 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-[#0A1228] border-t border-white/10 px-4 py-4 space-y-4">
-
-          <Link href="/" onClick={closeMenu} className="block text-gray-300 hover:text-white">
-            <b>Home</b>
-          </Link>
-
-          <Link href="/about" onClick={closeMenu} className="block text-gray-300 hover:text-white">
-            <b>Über uns</b>
-          </Link>
-
-          <Link href="/services" onClick={closeMenu} className="block text-gray-300 hover:text-white">
-            <b>Services</b>
-          </Link>
-
-          <Link href="/contact" onClick={closeMenu} className="block text-gray-300 hover:text-white">
-            <b>Kontakt</b>
-          </Link>
-
+          <ul>
+            <li>
+              <Link href="/" onClick={closeMenu} className={active("/")}>
+                <b>Home</b>
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" onClick={closeMenu} className={active("/about")}>
+                <b>Über uns</b>
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" onClick={closeMenu} className={active("/services")}>
+                <b>Services</b>
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={closeMenu} className={active("/contact")}>
+                <b>Kontakt</b>
+              </Link>
+            </li>
+          </ul>
         </div>
       )}
     </header>

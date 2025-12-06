@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ContactForm from "./components/ContactForm";
-import GlassCleanerBackground from "./components/GlassCleanerBackground";
 import ParallaxSlideshow from "./components/ParallaxSlideshow";
 
 export default function HomePage() {
@@ -16,9 +15,6 @@ export default function HomePage() {
 
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-white via-[#F2F8FF] to-[#E6F1FF] text-[#0A1228] overflow-hidden">
-
-      {/* 🔵 Hintergrund + Wischer */}
-      <GlassCleanerBackground />
 
       {/* Inhalt */}
       <div className="relative z-10">
