@@ -37,6 +37,7 @@ export default function Footer() {
         </div>
 
       </div>
+      
 
       <p className="text-center text-gray-500 text-xs mt-10">
         © {new Date().getFullYear()} Wish Wash – Alle Rechte vorbehalten.
