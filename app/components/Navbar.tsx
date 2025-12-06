@@ -38,7 +38,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-10 text-[15px]">
+        <ul className="hidden md:flex gap-10 text-[18px]">
           <li><Link href="/" className={active("/")}>Home</Link></li>
           <li><Link href="/about" className={active("/about")}>Über uns</Link></li>
           <li><Link href="/services" className={active("/services")}>Services</Link></li>

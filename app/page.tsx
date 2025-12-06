@@ -6,34 +6,71 @@ import ContactForm from "./components/ContactForm";
 import ParallaxSlideshow from "./components/ParallaxSlideshow";
 
 export default function HomePage() {
-  const [isTouch, setIsTouch] = useState(false);
-  const [cleanMode, setCleanMode] = useState(false);
-
-  useEffect(() => {
-    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
-  }, []);
-
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-white via-[#F2F8FF] to-[#E6F1FF] text-[#0A1228] overflow-hidden">
-
+      
       {/* Inhalt */}
       <div className="relative z-10">
 
-        {/* ⭐ NEUER HERO: PARALLAX SLIDESHOW */}
+        {/* ⭐ HERO */}
         <ParallaxSlideshow />
 
-        {/* Vorteile */}
+        {/* ⭐ DIENSTLEISTUNGEN */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          className="grid md:grid-cols-3 gap-10 px-6 md:px-16 py-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="grid md:grid-cols-3 gap-8 px-6 md:px-16 py-20"
         >
           {[
-            { title: "Zuverlässig", text: "Wir erscheinen pünktlich und arbeiten gründlich." },
-            { title: "Preiswert", text: "Faire Preise ohne versteckte Kosten." },
-            { title: "Professionell", text: "Moderne Ausrüstung & geschultes Personal." },
+            { 
+              icon: "🧽", 
+              title: "Unterhaltsreinigung", 
+              text: "Regelmässige Reinigung für Wohnungen, Häuser und Büros. Wir kümmern uns um Böden, Oberflächen, Sanitäranlagen und sorgen für eine konstant gepflegte Umgebung." 
+            },
+            { 
+              icon: "🪟", 
+              title: "Fensterreinigung", 
+              text: "Glasklare Fenster innen & aussen – inklusive Rahmen, Falze und schwer erreichbare Bereiche. Wir sorgen für streifenfreie Brillanz." 
+            },
+            { 
+              icon: "🏢", 
+              title: "Büroreinigung", 
+              text: "Effiziente und zuverlässige Reinigung von Arbeitsräumen – Oberflächen, Böden, Küchen- und Sanitärbereichen. Ideal für ein produktives Arbeitsumfeld." 
+            },
+          ].map((s, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white p-6 rounded-xl text-center shadow-lg border border-gray-200"
+            >
+              <div className="text-4xl mb-4">{s.icon}</div>
+              <h3 className="text-xl font-semibold text-[#3AA9FF] mb-2">{s.title}</h3>
+              <p className="text-gray-700">{s.text}</p>
+            </motion.div>
+          ))}
+        </motion.section>
+
+        {/* ⭐ VORTEILE (Warum wir?) */}
+        <motion.section
+          className="grid md:grid-cols-3 gap-8 px-6 md:px-16 pb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          {[
+            {
+              title: "Zuverlässig",
+              text: "Wir sind da, wenn Sie uns brauchen – pünktlich, organisiert und mit der Verlässlichkeit eines Partners, auf den Sie jederzeit zählen können."
+            },
+            {
+              title: "Preiswert",
+              text: "Erstklassige Reinigung zu fairen und transparenten Preisen – ohne versteckte Kosten und mit einem Preis-Leistungs-Verhältnis, das überzeugt."
+            },
+            {
+              title: "Professionell",
+              text: "Präzise Methoden und hochwertige Produkte sorgen für ein Reinigungsergebnis, das sichtbar beeindruckt."
+            }
           ].map((item, index) => (
             <motion.div
               key={index}
@@ -47,41 +84,14 @@ export default function HomePage() {
           ))}
         </motion.section>
 
+        
 
-        {/* Dienstleistungen */}
-        <motion.div
-          className="grid md:grid-cols-3 gap-10 pb-32"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {[
-            { icon: "🧽", title: "Unterhaltsreinigung", text: "Regelmässige Reinigung von Wohnungen, Büros und mehr." },
-            { icon: "🪟", title: "Fensterreinigung", text: "Glasklare Fenster und Rahmenreinigung." },
-            { icon: "🏢", title: "Büroreinigung", text: "Saubere Arbeitsplätze und hygienische Räume." },
-          ].map((s, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              className="bg-white p-6 rounded-xl text-center shadow-lg border border-gray-200"
-            >
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h3 className="text-xl font-semibold text-[#3AA9FF] mb-2">{s.title}</h3>
-              <p className="text-gray-700">{s.text}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-
-        {/* Kontakt */}
-        {/* Kontakt */}
+        {/* KONTAKT */}
         <motion.section
           id="kontakt"
           className="px-6 md:px-16 py-20 bg-gradient-to-b from-white to-[#F3F9FF]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center text-[#E5D5A4] mb-12">
@@ -94,7 +104,6 @@ export default function HomePage() {
 
           <ContactForm />
         </motion.section>
-
 
       </div>
     </main>
