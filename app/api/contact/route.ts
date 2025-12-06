@@ -5,26 +5,26 @@ export async function POST(req: Request) {
   try {
     const { name, email, message, service } = await req.json();
 
-    // Build transporter
+    // Hostpoint-konformer Transporter
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: Number(process.env.SMTP_PORT) === 465, // Only true for port 465
+      port: 587,              // WICHTIG: Hostpoint + Netlify = 587
+      secure: false,          // NIEMALS true setzen bei 587
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
       tls: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: false, // Hostpoint benötigt dies
       },
     });
 
-    // Try connecting first (important!)
+    // Optional: prüft, ob SMTP Verbindung möglich ist
     await transporter.verify();
 
     const mailOptions = {
       from: `"Wish Wash Website" <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_USER,
+      to: process.env.SMTP_USER, // an die eigene Adresse senden
       subject: `Neue Anfrage (${service})`,
       text: `
 Name: ${name}
@@ -35,12 +35,14 @@ ${message}
       `,
     };
 
+    // E-Mail senden
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true });
+
   } catch (err: any) {
     console.error("### MAIL ERROR ###");
-    console.error(err);  // <-- WICHTIG: Jetzt bekommt Netlify die volle Fehlermeldung
+    console.error(err);
 
     return NextResponse.json(
       {
