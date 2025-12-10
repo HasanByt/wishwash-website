@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wish-wash.ch/sitemap.xml

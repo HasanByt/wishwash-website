@@ -42,7 +42,6 @@ export default function ContactPage() {
 
         <p className="text-gray-700 leading-relaxed">
           Wish Wash Reinigung<br />
-          Inhaber: Albana Aziri<br />
           Telefon: +41 79 373 61 03<br />
           E-Mail: info@wish-wash.ch<br />
           Standort: 9450 Altstätten, CH
