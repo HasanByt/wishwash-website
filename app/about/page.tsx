@@ -1,100 +1,120 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
+
+const values = [
+  {
+    title: "Zuverlässigkeit",
+    text: "Wir halten Termine ein und arbeiten sauber, pünktlich und organisiert.",
+  },
+  {
+    title: "Gründlichkeit",
+    text: "Jeder Auftrag wird mit Präzision und Blick fürs Detail ausgeführt.",
+  },
+  {
+    title: "Transparenz",
+    text: "Klare Absprachen, faire Preise und ehrliche Kommunikation.",
+  },
+  {
+    title: "Qualität",
+    text: "Moderne Arbeitsweise und professionelle Reinigungsstandards.",
+  },
+];
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-[#F2F8FF] to-[#E6F1FF] text-[#0A1228] px-6 md:px-16 py-28">
+    <main className="min-h-screen soft-bg text-[#0A1228] px-6 md:px-16 pt-36 pb-24">
+      <section className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-14 items-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[#3AA9FF] font-semibold uppercase tracking-[0.25em] text-sm mb-4">
+              Über uns
+            </p>
 
-      {/* Titel */}
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-bold mb-10"
-      >
-        Über uns
-      </motion.h1>
+            <h1 className="text-4xl md:text-6xl font-black gradient-text mb-6">
+              Sauberkeit mit Anspruch.
+            </h1>
 
-      {/* Intro Text */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="text-lg text-gray-700 max-w-3xl leading-relaxed mb-12"
-      >
-        Wish Wash ist ein modernes und zuverlässiges Reinigungsunternehmen, das für
-        Privat- und Geschäftskunden professionelle Reinigungslösungen anbietet.
-        Unser Ziel ist es, jeden Raum makellos sauber zu hinterlassen – mit Präzision,
-        Leidenschaft und einem Lächeln.
-      </motion.p>
+            <p className="text-slate-600 text-lg leading-relaxed mb-6">
+              Wish Wash ist ein modernes Reinigungsunternehmen für Privat- und
+              Geschäftskunden. Unser Ziel ist es, Räume nicht nur sauber, sondern
+              gepflegt, angenehm und professionell wirken zu lassen.
+            </p>
 
-      {/* Team / Mission Section */}
-      <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <p className="text-slate-600 text-lg leading-relaxed">
+              Wir arbeiten zuverlässig, sorgfältig und mit persönlichem Anspruch.
+              Jede Reinigung wird individuell auf die Situation und die Wünsche
+              unserer Kundinnen und Kunden abgestimmt.
+            </p>
+          </motion.div>
 
-        {/* Bild */}
-        <motion.img
-          src="/logo.webp"
-          alt="Wish Wash Logo"
-          className="w-80 mx-auto drop-shadow-xl"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-        />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="rounded-[2rem] bg-white p-10 shadow-[0_25px_80px_rgba(15,45,80,0.12)] border border-slate-100"
+          >
+            <Image
+              src="/logo.webp"
+              alt="Wish Wash Logo"
+              width={288}
+              height={180}
+              className="mx-auto drop-shadow-xl"
+              priority
+            />
+          </motion.div>
+        </div>
 
-        {/* Mission Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <h2 className="text-3xl font-semibold text-[#3AA9FF] mb-4">Unsere Mission</h2>
-          <p className="text-gray-700 leading-relaxed">
-            Unser Anspruch ist es, höchste Sauberkeit und volle Kundenzufriedenheit zu garantieren.
-            Wir verwenden moderne Reinigungsmittel, nachhaltige Produkte und arbeiten mit einem
-            geschulten Team, das Wert auf Qualität und Pünktlichkeit legt.
+        <div className="rounded-[2rem] bg-[#0A1228] text-white p-8 md:p-12 mb-16">
+          <p className="text-[#E5D5A4] font-semibold uppercase tracking-[0.25em] text-sm mb-4">
+            Unsere Mission
           </p>
-        </motion.div>
-      </div>
 
-      {/* Werte */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="text-3xl font-semibold text-[#3AA9FF] mb-6"
-      >
-        Unsere Werte
-      </motion.h2>
+          <h2 className="text-3xl md:text-5xl font-black mb-6">
+            Reinigung, auf die man sich verlassen kann.
+          </h2>
 
-      {/* Werte Liste */}
-      <motion.ul
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="space-y-6 text-gray-700 max-w-3xl"
-      >
-        <li>
-          <span className="text-[#3AA9FF] font-bold text-xl">✔ Zuverlässigkeit</span><br />
-          Wir halten unsere Termine ein und arbeiten effizient.
-        </li>
+          <p className="text-slate-300 text-lg leading-relaxed max-w-4xl">
+            Wir möchten unseren Kundinnen und Kunden Zeit, Aufwand und Stress
+            abnehmen. Mit klarer Kommunikation, fairen Preisen und hochwertiger
+            Arbeit schaffen wir saubere Räume und ein gutes Gefühl.
+          </p>
+        </div>
 
-        <li>
-          <span className="text-[#3AA9FF] font-bold text-xl">✔ Gründlichkeit</span><br />
-          Jeder Auftrag wird mit höchster Präzision ausgeführt.
-        </li>
+        <div>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <p className="text-[#3AA9FF] font-semibold uppercase tracking-[0.25em] text-sm mb-4">
+              Werte
+            </p>
 
-        <li>
-          <span className="text-[#3AA9FF] font-bold text-xl">✔ Transparenz</span><br />
-          Klare Absprachen, faire Preise und ehrliche Kommunikation.
-        </li>
+            <h2 className="text-4xl md:text-5xl font-black gradient-text">
+              Dafür steht Wish Wash.
+            </h2>
+          </div>
 
-        <li>
-          <span className="text-[#3AA9FF] font-bold text-xl">✔ Nachhaltigkeit</span><br />
-          Schonende Reinigungsmittel und verantwortungsvoller Umgang mit Ressourcen.
-        </li>
-      </motion.ul>
-
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                className="rounded-[1.5rem] bg-white p-7 border border-slate-100 shadow-[0_20px_60px_rgba(15,45,80,0.08)]"
+              >
+                <div className="text-[#3AA9FF] text-3xl mb-4">✓</div>
+                <h3 className="text-xl font-black mb-3">{value.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{value.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -1,139 +1,168 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "Über uns" },
+  { href: "/services", label: "Services" },
+  { href: "/contact", label: "Kontakt" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  const closeMenu = () => setIsOpen(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
 
-  const active = (path: string) =>
-    pathname === path ? "text-[#3AA9FF] font-bold" : "text-gray-300";
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const closeMenu = () => setIsOpen(false);
+  const active = (path: string) => pathname === path;
+  const isHomeTop = pathname === "/" && !scrolled;
 
   return (
     <>
-      {/* NAVBAR */}
-      <header className="relative z-50 bg-[#0A1228] text-gray-300 border-b border-white/10 shadow-lg">
-        <nav className="max-w-7xl mx-auto px-4 py-5 flex justify-between items-center">
-
-          {/* Logo */}
+      <header
+        className={`
+          fixed top-0 left-0 right-0 z-50 transition-all duration-300
+          ${isHomeTop
+            ? "bg-transparent"
+            : "bg-white/90 backdrop-blur-2xl shadow-[0_12px_40px_rgba(15,45,80,0.08)]"
+          }
+        `}
+      >
+        <nav className="max-w-7xl mx-auto px-5 md:px-8 py-2 flex items-center justify-between">
           <Link href="/" onClick={closeMenu} className="flex items-center">
-            <img
-              src="/logo.webp"
-              alt="Wish Wash Logo"
-              className="w-[170px] md:w-[180px] h-auto hover:scale-105 transition-transform"
-            />
+            <Image
+  src="/logo.webp"
+  alt="Wish Wash Logo"
+  width={125}
+  height={80}
+  className="h-auto drop-shadow-md"
+  priority
+/>
           </Link>
 
-          {/* Mobile Menu Button */}
+          <ul
+            className={`
+              hidden md:flex items-center gap-1 rounded-full px-2 py-1.5 transition
+              ${isHomeTop ? "bg-white/10 backdrop-blur-md" : "bg-slate-100/80"}
+            `}
+          >
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`
+                    rounded-full px-4 py-2 text-sm font-bold transition
+                    ${active(item.href)
+                      ? "bg-[#3AA9FF] text-white shadow-[0_10px_30px_rgba(58,169,255,0.35)]"
+                      : isHomeTop
+                        ? "text-white/85 hover:bg-white/15 hover:text-white"
+                        : "text-slate-700 hover:bg-white hover:text-[#0A1228]"
+                    }
+                  `}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="https://wa.me/41793736103"
+            target="_blank"
+            className={`
+              hidden md:inline-flex rounded-full px-5 py-2.5 text-sm font-bold transition
+              ${isHomeTop
+                ? "bg-white text-[#0A1228] hover:bg-[#3AA9FF] hover:text-white"
+                : "bg-[#0A1228] text-white hover:bg-[#3AA9FF]"
+              }
+            `}
+          >
+            Offerte anfragen
+          </a>
+
           <button
-            className="md:hidden text-gray-300 text-3xl"
+            className={`md:hidden text-3xl ${isHomeTop ? "text-white" : "text-[#0A1228]"}`}
             onClick={() => setIsOpen(true)}
+            aria-label="Menü öffnen"
           >
             ☰
           </button>
-
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex gap-10 text-gray-300 text-[18px]">
-            <li><Link href="/" className={active("/")}>Home</Link></li>
-            <li><Link href="/about" className={active("/about")}>Über uns</Link></li>
-            <li><Link href="/services" className={active("/services")}>Services</Link></li>
-            <li><Link href="/contact" className={active("/contact")}>Kontakt</Link></li>
-          </ul>
         </nav>
       </header>
 
-      {/* OVERLAY */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
           onClick={closeMenu}
-        ></div>
+        />
       )}
 
-      {/* SLIDE-IN MENU */}
       <div
         className={`
-          fixed top-0 right-0 h-full w-64 bg-[#0A1228] shadow-xl z-50 md:hidden
+          fixed top-0 right-0 h-full w-[82%] max-w-80 bg-white shadow-2xl z-50 md:hidden
           transform ${isOpen ? "translate-x-0" : "translate-x-full"}
           transition-transform duration-300 ease-in-out
         `}
       >
-        <div className="flex flex-col p-6 space-y-6 text-right">
-
+        <div className="flex flex-col p-7 space-y-6">
           <button
             onClick={closeMenu}
-            className="text-gray-300 text-3xl self-end mb-4"
+            className="text-[#0A1228] text-3xl self-end"
+            aria-label="Menü schliessen"
           >
             ✕
           </button>
 
-          <Link href="/" onClick={closeMenu} className={`${active("/")} text-lg`}>
-            Home
-          </Link>
+          <Image
+            src="/logo.webp"
+            alt="Wish Wash Logo"
+            width={150}
+            height={95}
+            className="mb-6 h-auto mx-auto"
+          />
 
-          <Link href="/about" onClick={closeMenu} className={`${active("/about")} text-lg`}>
-            Über uns
-          </Link>
-
-          <Link href="/services" onClick={closeMenu} className={`${active("/services")} text-lg`}>
-            Services
-          </Link>
-
-          <Link href="/contact" onClick={closeMenu} className={`${active("/contact")} text-lg`}>
-            Kontakt
-          </Link>
-
-          <div className="mt-10 pt-6 border-t border-white/10 text-right space-y-3">
-
-            {/* Telefon */}
-            <a
-              href="tel:+41793736103"
-              className="block text-gray-300 hover:text-white text-lg"
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={closeMenu}
+              className={`
+                rounded-2xl px-4 py-3 text-lg font-bold transition
+                ${active(item.href)
+                  ? "bg-[#3AA9FF] text-white"
+                  : "text-slate-700 hover:bg-slate-100"
+                }
+              `}
             >
-              📞 +41 79 373 61 03
+              {item.label}
+            </Link>
+          ))}
+
+          <div className="pt-6 border-t border-slate-200 space-y-4">
+            <a href="tel:+41793736103" className="block text-slate-700 font-semibold">
+              +4179 373 61 03
             </a>
 
-            {/* WhatsApp */}
             <a
               href="https://wa.me/41793736103"
               target="_blank"
-              className="
-    flex items-center gap-2
-    bg-[#25D366]
-    hover:bg-[#1EBE5A]
-    text-white
-    font-medium
-    px-4 py-2
-    rounded-full
-    transition
-    w-fit
-  "
+              className="inline-flex rounded-full bg-[#25D366] text-white font-bold px-5 py-3"
             >
-              {/* WhatsApp Icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                className="w-4 h-4"
-              >
-                <path
-                  fill="white"
-                  d="M16 3C9.4 3 4 8.4 4 15c0 2.5.8 4.9 2.1 6.9L4 29l7.3-2.1C13.3 28.3 14.6 29 16 29c6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.3-3.5-.8l-.3-.1-4.3 1.2 1.2-4.2-.2-.3C7.9 19 7 17 7 15c0-5 4-9 9-9s9 4 9 9-4 10-9 10zm5.1-7.3c-.3-.1-1.9-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.1-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-1-.9-1.5-2-1.7-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3s1.2 3.4 1.3 3.6c.1.2 2.4 3.8 5.8 5.2 3.4 1.5 3.4 1 4 .9.6-.1 1.9-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.1-.2-.1-.5-.2z"
-                />
-              </svg>
-
               WhatsApp schreiben
             </a>
-
-
-
-
-
           </div>
-
         </div>
       </div>
     </>

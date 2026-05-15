@@ -5,58 +5,84 @@ import ContactForm from "../components/ContactForm";
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-[#F2F8FF] to-[#E6F1FF] text-[#0A1228] px-6 md:px-16 py-28">
+    <main className="min-h-screen soft-bg text-[#0A1228] px-6 md:px-16 pt-36 pb-24">
+      <section className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <p className="text-[#3AA9FF] font-semibold uppercase tracking-[0.25em] text-sm mb-4">
+            Kontakt
+          </p>
 
-      {/* Titel */}
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-bold text-[#0A1228] mb-10"
-      >
-        Kontakt & Offertenanfrage
-      </motion.h1>
+          <h1 className="text-4xl md:text-6xl font-black gradient-text mb-6">
+            Kostenlose Offerte anfragen.
+          </h1>
 
-      {/* Einleitung */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="text-lg text-gray-700 max-w-3xl leading-relaxed mb-10"
-      >
-        Haben Sie Fragen oder wünschen eine unverbindliche Offerte?
-        Füllen Sie das Formular aus oder kontaktieren Sie uns direkt —
-        wir melden uns so schnell wie möglich.
-      </motion.p>
+          <p className="text-slate-600 text-lg leading-relaxed">
+            Haben Sie Fragen oder wünschen Sie eine unverbindliche Offerte?
+            Schreiben Sie uns – wir melden uns so schnell wie möglich.
+          </p>
+        </motion.div>
 
-      {/* Kontaktinformationen */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.3 }}
-        className="bg-white shadow-lg p-6 rounded-xl border border-gray-200 mb-14 max-w-xl"
-      >
-        <h2 className="text-2xl font-semibold text-[#3AA9FF] mb-3">
-          Kontaktinformationen
-        </h2>
+        <div className="grid lg:grid-cols-[0.9fr_1.4fr] gap-10 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="rounded-[2rem] bg-[#0A1228] text-white p-8 md:p-10 shadow-[0_25px_80px_rgba(10,18,40,0.22)]"
+          >
+            <h2 className="text-3xl font-black mb-6">
+              Kontaktinformationen
+            </h2>
 
-        <p className="text-gray-700 leading-relaxed">
-          Wish Wash Reinigung<br />
-          Telefon: +41 79 373 61 03<br />
-          E-Mail: info@wish-wash.ch<br />
-          Standort: 9450 Altstätten, CH
-        </p>
-      </motion.div>
+            <div className="space-y-5 text-slate-300">
+              <div>
+                <p className="text-[#E5D5A4] font-bold mb-1">Firma</p>
+                <p>Wish Wash Reinigung</p>
+              </div>
 
-      {/* Kontaktformular */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.4 }}
-      >
-        <ContactForm />
-      </motion.div>
+              <div>
+                <p className="text-[#E5D5A4] font-bold mb-1">Telefon</p>
+                <a href="tel:+41793736103" className="hover:text-white transition">
+                  +41 79 373 61 03
+                </a>
+              </div>
 
+              <div>
+                <p className="text-[#E5D5A4] font-bold mb-1">E-Mail</p>
+                <a href="mailto:info@wish-wash.ch" className="hover:text-white transition">
+                  info@wish-wash.ch
+                </a>
+              </div>
+
+              <div>
+                <p className="text-[#E5D5A4] font-bold mb-1">Standort</p>
+                <p>9450 Altstätten, Schweiz</p>
+              </div>
+            </div>
+
+            <a
+              href="https://wa.me/41793736103"
+              target="_blank"
+              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 font-bold text-white hover:opacity-90 transition"
+            >
+              WhatsApp schreiben
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="glass-card rounded-[2rem] p-6 md:p-10"
+          >
+            <ContactForm />
+          </motion.div>
+        </div>
+      </section>
     </main>
   );
 }

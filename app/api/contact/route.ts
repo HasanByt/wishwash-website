@@ -41,15 +41,15 @@ ${message}
 
         return NextResponse.json({ success: true });
 
-    } catch (err: any) {
+    } catch (err: unknown) {
         console.error("### MAIL ERROR ###");
         console.error(err);
 
         return NextResponse.json(
             {
                 success: false,
-                error: err.message ?? "Unknown error",
-                stack: err.stack ?? null,
+                error: err instanceof Error ? err.message : "Unknown error",
+                stack: err instanceof Error ? err.stack : null,
             },
             { status: 500 }
         );
