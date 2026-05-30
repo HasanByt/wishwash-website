@@ -81,6 +81,7 @@ export default function Navbar() {
           <a
             href="https://wa.me/41793736103"
             target="_blank"
+            rel="noopener noreferrer"
             className={`
               hidden md:inline-flex rounded-full px-5 py-2.5 text-sm font-bold transition
               ${isHomeTop
@@ -158,6 +159,7 @@ export default function Navbar() {
             <a
               href="https://wa.me/41793736103"
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex rounded-full bg-[#25D366] text-white font-bold px-5 py-3"
             >
               WhatsApp schreiben

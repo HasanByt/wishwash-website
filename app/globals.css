@@ -11,7 +11,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-jakarta);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -35,17 +35,6 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-#wiper {
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-html,
-body {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
 
 ::selection {
   background: #3aa9ff;

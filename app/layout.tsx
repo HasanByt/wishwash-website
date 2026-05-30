@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Wish Wash Reinigung",
     images: [
       {
-        url: "//slide1.webp",
+        url: "/slide1.webp",
         width: 1200,
         height: 630,
         alt: "Wish Wash Reinigung",

@@ -28,6 +28,7 @@ export default function Footer() {
             <a
               href="https://wa.me/41793736103"
               target="_blank"
+              rel="noopener noreferrer"
               className="mt-7 inline-flex rounded-full bg-[#3AA9FF] px-6 py-3 font-bold text-white hover:bg-white hover:text-[#0A1228] transition"
             >
               Offerte anfragen
